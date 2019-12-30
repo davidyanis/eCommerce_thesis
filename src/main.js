@@ -12,6 +12,12 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faArrowLeft)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 Vue.config.productionTip = false;
 
 Vue.use({

@@ -6,8 +6,8 @@
     <section class="links">
         <router-link to="/">Bli en partner</router-link> |
         <router-link to="/tjanster">Börja handla</router-link> |
-        <router-link to="/login">Logga in</router-link> |
-        <router-link to="/checkout">Varukorg {{ this.$store.state.amountOfProducts }}</router-link>
+        <router-link to="/login">Logga in</router-link>
+        <!-- <router-link to="/checkout">Varukorg {{ this.$store.state.amountOfProducts }}</router-link> -->
     </section>
   </div>
 </template>

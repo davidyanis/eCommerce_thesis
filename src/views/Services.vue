@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ListAllServices v-if="loader === false" msg="Lista över alla tjänster" />
+    <ListAllServices v-if="loader === false" msg="Frilanserare till din tjänst.." />
     <Loader :loader="loader" />
   </div>
 </template>
@@ -21,13 +21,15 @@ export default {
       loader: true
     }
   },
-  async mounted() {
+  async created() {
     try {
-      let response = await this.$axios.get("/api/tjanster")
-      this.$store.list = response.data
+      if (!this.$store.list) {
+        let response = await this.$axios.get("/api/tjanster")
+        this.$store.list = response.data
+      }
       this.loader = false
     } catch (err) {
-      window.location.href = '/404'
+      console.log(err)
     }
   }
 }

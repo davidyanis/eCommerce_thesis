@@ -1,10 +1,19 @@
 <template>
   <div class="container mt-5">
     <h1>{{ msg }}</h1>
-    <div class="row">
-      <div class="renderServices" v-for="(service, id) in this.$store.list" :key="id">
-        <h4> {{service.name}} </h4>
-        <b-button @click="addProductToCart(service)" variant="dark">Lägg till</b-button>
+    <div class="card-deck">
+      <div class="card" style="max-width: 20rem;" v-for="(service, id) in this.$store.list" :key="id">
+        <img class="card-img-top" :src="service.images[0].src" width="100%" height="200px" />
+        <div class="card-body pb-0 d-flex justify-content-between">
+          <h4 @click="goToProduct(service.id)"> {{service.name}} </h4>
+          <p> {{service.regular_price}} kr</p>
+        </div>
+        <div class="card-body pt-0">
+         {{service.short_description | strippedContent}}
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
       </div>
     </div>
   </div>
@@ -16,10 +25,21 @@ export default {
   props: {
     msg: String,
   },
+  filters: {
+    strippedContent: function(string) {
+      return string.replace(/<\/?[^>]+>/ig, " "); 
+    }
+  },
   methods: {
+    goToProduct(productId) {
+      this.$router.push({ path: `/tjanster/${productId}` }) 
+    },
     addProductToCart(service) {
       this.$store.dispatch('addProductToCart', service)
     }
+  }, 
+  mounted() {
+    console.log(this.$store.list)
   }
 };
 </script>
@@ -28,11 +48,13 @@ export default {
 <style scoped>
 
 h1 {
-  padding-left: 1em;
+  
 }
 
-.renderServices {
-  padding: 4em;
+h4:hover {
+  cursor: pointer;
+  color: #42b983;
 }
+
 
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="loader" v-if="loader == true">
-      <h1>Taskville.se</h1>
-      <img src="../assets/Spinner.gif" width="300px" />
+      <h1 class="mb-5">Taskville.se</h1>
+      <b-spinner style="width: 3rem; height: 3rem;" variant="success" label="Spinning"></b-spinner>
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@ h1 {
   left:0;
   width: 100%;
   height: 100%;
-  background:rgb(0, 0, 0);
+  background:rgba(0, 0, 0, 0.568);
 }
 
 </style>

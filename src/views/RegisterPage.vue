@@ -5,6 +5,14 @@
       <span class="ml-5"> eller <b-link to="login">logga in</b-link> </span>
     </div>
     <b-form @submit="onSubmit">
+        <b-form-group id="input-group-4" label="Användarnamn:" label-for="input-4">
+        <b-form-input
+          id="input-4"
+          v-model="form.displayName"
+          type="text"
+          required
+        ></b-form-input>
+      </b-form-group>
         <b-form-group
         id="input-group-1"
         label="Email address:"
@@ -39,13 +47,12 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-3" label="Ange lösenord igen" label-for="input-3">
+      <b-form-group id="input-group-5" label="Ange lösenord igen" label-for="input-5">
         <b-form-input
-          id="input-3"
+          id="input-5"
           type="password"
           v-model="form.reEnterPassword"
           required
-          v-on:blur="validate"
         
         ></b-form-input>
         <b-form-invalid-feedback :state="validation">
@@ -57,16 +64,23 @@
       </b-form-group>
       <b-button type="submit" variant="primary">Skapa konto</b-button>
     </b-form>
+    <Loader :loader="loader" />
   </div>
 </template>
 
 <script>
+import Loader from "@/components/Loader.vue";
 
 export default {
   name: "RegisterPage",
+  components: {
+    Loader
+  },
   data() {
     return {
+      loader: false,
       form: {
+        displayName: '',
         email: '',
         name: '',
         password: '',
@@ -84,26 +98,21 @@ export default {
   methods: {
     async onSubmit(evt) {
       evt.preventDefault()
+      this.loader = true
       try {
-        let response = await this.$axios.post("/register", {
+        let response = await this.$axios.post("/api/register", {
+          displayName: this.form.displayName,
           name: this.form.name,
           email: this.form.email,
           password: this.form.password
-      })
+        })
+        window.location.href = '/login'
       } catch (err) {
         window.location.href = '/404'
       }
+      this.loader = false
     },
-    onReset(evt) {
-      evt.preventDefault()
-      // Reset our form values
-      this.form.email = ''
-      this.form.name = ''
-    }
   },
-  mounted() {
-    console.log(this.form.email)
-  }
 };
 </script>
 

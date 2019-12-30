@@ -23,15 +23,21 @@
       
     <b-button type="submit" variant="primary">Logga in</b-button>
     </b-form>
+    <Loader :loader="loader" />
   </div>
 </template>
 
 <script>
+import Loader from "@/components/Loader.vue";
 
 export default {
   name: "LoginPage",
+  components: {
+    Loader
+  },
   data() {
     return {
+      loader: false,
       form: {
         name: '',
         password: ''
@@ -39,9 +45,19 @@ export default {
     }
   },
   methods: {
-  onSubmit(evt) {
+  async onSubmit(evt) {
     evt.preventDefault()
-  
+    this.loader = true
+    try {
+      let response = await this.$axios.post("/api/login", {
+        name: this.form.name,
+        password: this.form.password
+      })
+      console.log(response.data)
+    } catch (err) {
+      window.location.href = '/404'
+    }
+    this.loader = false
   },
   },
   mounted() {
