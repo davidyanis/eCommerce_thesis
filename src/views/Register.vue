@@ -72,7 +72,7 @@
 import Loader from "@/components/Loader.vue";
 
 export default {
-  name: "RegisterPage",
+  name: "Register",
   components: {
     Loader
   },

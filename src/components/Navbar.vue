@@ -4,9 +4,13 @@
         <h2><a href="/">Taskville.se</a></h2>
     </section>
     <section class="links">
+        <router-link v-if="loggedIn" to="/logout">Lägg till tjänst | </router-link> 
         <router-link to="/">Bli en partner</router-link> |
         <router-link to="/tjanster">Börja handla</router-link> |
-        <router-link to="/login">Logga in</router-link>
+        <router-link v-if="!loggedIn" to="/login">Logga in </router-link>
+        <router-link v-if="loggedIn" to="/logout">Logga ut</router-link> 
+        <span v-if="loggedIn"> | {{this.$store.state.displayName}} </span>
+
         <!-- <router-link to="/checkout">Varukorg {{ this.$store.state.amountOfProducts }}</router-link> -->
     </section>
   </div>
@@ -15,6 +19,11 @@
 <script>
 export default {
   name: "Navbar",
+  computed: {
+    loggedIn() {
+      return this.$store.getters.loggedIn
+    },
+  }
 };
 </script>
 

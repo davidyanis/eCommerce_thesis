@@ -6,7 +6,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+
 import ListAllServices from "@/components/ListAllServices.vue";
 import Loader from "@/components/Loader.vue";
 

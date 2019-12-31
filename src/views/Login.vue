@@ -18,6 +18,7 @@
         id="input-3"
         v-model="form.password"
         required
+        type="password"
       ></b-form-input>
     </b-form-group>
       
@@ -31,7 +32,7 @@
 import Loader from "@/components/Loader.vue";
 
 export default {
-  name: "LoginPage",
+  name: "Login",
   components: {
     Loader
   },
@@ -45,20 +46,23 @@ export default {
     }
   },
   methods: {
-  async onSubmit(evt) {
-    evt.preventDefault()
-    this.loader = true
-    try {
-      let response = await this.$axios.post("/api/login", {
-        name: this.form.name,
-        password: this.form.password
-      })
-      console.log(response.data)
-    } catch (err) {
-      window.location.href = '/404'
-    }
-    this.loader = false
-  },
+    onSubmit(evt) {
+      evt.preventDefault()
+   
+        this.loader = true
+        this.$store.dispatch("retrieveCookie", {
+          name: this.form.name,
+          password: this.form.password
+        })
+        .then(response => {
+          this.$router.push("/tjanster")
+        })
+        .catch(err => {
+          alert("Du har angett fel användarnamn eller lösenord")
+        })
+
+        this.loader = false
+    },
   },
   mounted() {
     console.log(this.form.email)

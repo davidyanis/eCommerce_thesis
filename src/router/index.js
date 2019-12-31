@@ -21,21 +21,36 @@ const routes = [
   },
   {
     path: "/login",
-    name: "LoginPage",
+    name: "Login",
+    meta: {
+      requiresVisitor: true
+    },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/LoginPage.vue")
+      import(/* webpackChunkName: "about" */ "../views/Login.vue")
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Logout.vue")
   },
   {
     path: "/register",
-    name: "RegisterPage",
+    name: "Register",
+    meta: {
+      requiresVisitor: true
+    },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/RegisterPage.vue")
+      import(/* webpackChunkName: "about" */ "../views/Register.vue")
   },
   {
     path: "/checkout",
@@ -75,5 +90,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
+
+
 
 export default router;
