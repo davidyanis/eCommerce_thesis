@@ -5,63 +5,30 @@
       <span class="ml-5"> eller <b-link to="login">logga in</b-link> </span>
     </div>
     <b-form @submit="onSubmit">
-        <b-form-group id="input-group-4" label="Användarnamn:" label-for="input-4">
-        <b-form-input
-          id="input-4"
-          v-model="form.displayName"
-          type="text"
-          required
-        ></b-form-input>
+      <b-form-group id="input-group-4" label="Användarnamn:" label-for="input-4" description="För att logga in.">
+        <b-form-input id="input-4" v-model="form.displayName" type="text" required></b-form-input>
       </b-form-group>
-        <b-form-group
-        id="input-group-1"
-        label="Email address:"
-        label-for="input-1"
-        description="Din email adress kommer aldrig att användas för reklam."
-      >
-        <b-form-input
-          id="input-1"
-          v-model="form.email"
-          type="email"
-          required
-      
-        ></b-form-input>
+      <b-form-group id="input-group-3" label="Lösenord:" label-for="input-3">
+        <b-form-input id="input-3" type="password" v-model="form.password" required></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Namn:" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.name"
-          required
-         
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-3" label="Lösenord" label-for="input-3">
-        <b-form-input
-          id="input-3"
-          type="password"
-          v-model="form.password"
-          required
-        
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-5" label="Ange lösenord igen" label-for="input-5">
-        <b-form-input
-          id="input-5"
-          type="password"
-          v-model="form.reEnterPassword"
-          required
-        
-        ></b-form-input>
+      <b-form-group id="input-group-5" label="Ange lösenord igen:" label-for="input-5">
+        <b-form-input id="input-5" type="password" v-model="form.reEnterPassword" required></b-form-input>
         <b-form-invalid-feedback :state="validation">
-      Lösenordet matchar inte.
-    </b-form-invalid-feedback>
+            Lösenordet matchar inte.
+        </b-form-invalid-feedback>
         <b-form-valid-feedback :state="validation">
-      Lösenordet matchar.
-      </b-form-valid-feedback>
+            Lösenordet matchar.
+        </b-form-valid-feedback>
       </b-form-group>
+      <b-form-group id="input-group-1" label="Email address:" label-for="input-1" description="Din email adress kommer aldrig att användas för reklam.">
+          <b-form-input id="input-1" v-model="form.email" type="email" required></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="Visningsnamn:" label-for="input-2">
+          <b-form-input id="input-2" v-model="form.name" required></b-form-input>
+      </b-form-group>
+
       <b-button type="submit" variant="primary">Skapa konto</b-button>
     </b-form>
     <Loader :loader="loader" />
@@ -104,7 +71,7 @@ export default {
           displayName: this.form.displayName,
           name: this.form.name,
           email: this.form.email,
-          password: this.form.password
+          password: this.form.password,
         })
         window.location.href = '/login'
       } catch (err) {

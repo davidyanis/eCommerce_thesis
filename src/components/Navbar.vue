@@ -4,12 +4,17 @@
         <h2><a href="/">Taskville.se</a></h2>
     </section>
     <section class="links">
-        <router-link v-if="loggedIn" to="/logout">Lägg till tjänst | </router-link> 
         <router-link to="/">Bli en partner</router-link> |
         <router-link to="/tjanster">Börja handla</router-link> |
         <router-link v-if="!loggedIn" to="/login">Logga in </router-link>
-        <router-link v-if="loggedIn" to="/logout">Logga ut</router-link> 
-        <span v-if="loggedIn"> | {{this.$store.state.displayName}} </span>
+        <b-dropdown v-if="loggedIn" id="dropdown-1" right variant="link" :text="this.$store.state.displayName">
+          <b-dropdown-item><router-link to="/tjanst/lagg-till">Lägg till tjänst </router-link> </b-dropdown-item>
+          <b-dropdown-item>Second Action</b-dropdown-item>
+          <b-dropdown-item>Third Action</b-dropdown-item>
+          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-item><router-link to="/logout">Logga ut</router-link> </b-dropdown-item>
+          <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+        </b-dropdown>
 
         <!-- <router-link to="/checkout">Varukorg {{ this.$store.state.amountOfProducts }}</router-link> -->
     </section>
@@ -56,4 +61,11 @@ export default {
 #nav a:hover {
   color: #42b983;
 }
+
+.btn {
+  padding-left: 0!important;
+  padding-top: 0!important;
+}
+
+
 </style>

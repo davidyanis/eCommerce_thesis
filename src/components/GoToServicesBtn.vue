@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <b-button size="lg" class="mt-5" to="/tjanster" variant="success">{{ msg }}</b-button>
+    <b-button size="lg" class="mt-5" to="/tjanster" style="background-color: #42b983">{{ msg }}</b-button>
   </div>
 </template>
 
@@ -28,5 +28,7 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
+
+
 
 </style>

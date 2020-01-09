@@ -25,20 +25,14 @@ const routes = [
     meta: {
       requiresVisitor: true
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Login.vue")
+      import(/* webpackChunkName: "about" */ "../views/account/Login.vue")
   },
   {
     path: "/logout",
     name: "Logout",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Logout.vue")
+      import(/* webpackChunkName: "about" */ "../views/account/Logout.vue")
   },
   {
     path: "/register",
@@ -46,36 +40,30 @@ const routes = [
     meta: {
       requiresVisitor: true
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Register.vue")
+      import(/* webpackChunkName: "about" */ "../views/account/Register.vue")
   },
   {
     path: "/checkout",
     name: "Checkout",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Checkout.vue")
   },
   {
     path: "/tjanster/:id",
     name: "SingleProduct",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/SingleProduct.vue")
   },
   {
+    path: "/tjanst/lagg-till",
+    name: "AddProduct",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/AddProduct.vue")
+  },
+  {
     path: "/404",
     name: "404Page",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/404Page.vue")
   },

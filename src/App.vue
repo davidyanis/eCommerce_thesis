@@ -26,5 +26,7 @@ section h1 {
     margin-top: 0;
 }
 
-
+.btn-link {
+  color: #212529!important;
+}
 </style>
