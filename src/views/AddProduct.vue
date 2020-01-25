@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container mt-5 d-flex justify-content-between flex-wrap">
-      <sidebar class="col-md-5 sidebar">
+      <div class="col-md-5 sidebar">
         <h4>Exempel på en bra annons..</h4>
         <p>Namn: Magnus Johansson</p>
         <p> Rubrik: Däckbyte</p>
@@ -9,7 +9,7 @@
         <p> Beskrivning: Däckmontör med flera års erfarenhet från att ha jobbat med det proffesionellt och gjort mycket åt vänner.</p>
         <p> Telefonnummer: 073-982 98 00</p>
     
-      </sidebar>
+      </div>
       <b-form @submit="publishProduct" class="col-md-6">
         <h4>Här kan du lägga till en tjänst </h4>
          <div v-if="inputerror === true" class="alert alert-danger">
@@ -22,8 +22,8 @@
         <b-form-group label="Rubrik:" >
           <b-form-input v-model="form.title" placeholder="Hårklippning hemma hos dig." type="text"></b-form-input>
         </b-form-group>
-        <b-form-group label="Pris:">
-          <b-form-input v-model="form.price" type="text"></b-form-input>
+        <b-form-group label="Pris (kr):">
+          <b-form-input v-model="form.price" type="number"></b-form-input>
         </b-form-group>
         <b-form-group label="Beskrivning:">
           <b-form-textarea v-model="form.description" id="textarea" placeholder="Jag hjälper dig med.." rows="3" max-rows="6"></b-form-textarea>
@@ -86,14 +86,21 @@ export default {
         formData.append('price', this.form.price)
         formData.append('customerMessage', this.form.customerMessage)
         formData.append('cookie', localStorage.getItem("cookie"))
-        let response = await this.$axios.post("http://localhost:3000/api/createProduct", formData)
+        let response = await this.$axios.post("api/createProduct", formData)
         
         if (response.status === 200) {
           this.$router.push('/tjanster')
         }
 
       } catch (err) {
-      this.inputerror = true;
+        if (err.response.status === 403) {
+           this.inputerror = true;
+        }
+
+        if (err.response.status === 404) {
+            this.$router.push('/404')
+        }
+       
         if (err.response.status === 401) {
           this.$router.push('/logout')
           alert("Vänligen logga in igen")

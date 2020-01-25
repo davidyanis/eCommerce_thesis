@@ -1,7 +1,7 @@
 <template>
-  <div class="container mt-5">
-    <div class="card-deck mt-5">
-      <div class="card mb-5 col-lg-3 " style="padding: 0!important;" v-for="(service, id) in this.$store.list" :key="id">
+  <div class="mt-5">
+    <div class="container d-flex flex-wrap mt-5">
+      <div class="card m-3 col-md-3" style="padding: 0!important;" v-for="(service, id) in this.$store.list" :key="id">
         <img class="card-img-top" :src="service.images[0].src" width="100%" height="200px" />
         <div class="card-body pb-0 d-flex justify-content-between">
           <h4 @click="goToProduct(service.id)"> {{service.name}} </h4>
@@ -37,9 +37,6 @@ export default {
       this.$store.dispatch('addProductToCart', service)
     }
   }, 
-  mounted() {
-    console.log(this.$store.list)
-  }
 };
 </script>
 

@@ -27,7 +27,7 @@ Vue.config.productionTip = false;
 Vue.use({
   install(Vue) {
     Vue.prototype.$axios = axios.create({
-      baseURL: "http://localhost:3000"
+      baseURL: "https://apirestaurangkina.com"
     });
   }
 });

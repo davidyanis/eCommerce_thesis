@@ -50,7 +50,7 @@ export default new Vuex.Store({
     },
     async retrieveCookie(context, credentials) {
       try {
-        let response = await axios.post("http://localhost:3000/api/login", {
+        let response = await axios.post("https://apirestaurangkina.com/api/login", {
           name: credentials.name,
           password: credentials.password
         })

@@ -10,7 +10,6 @@
       <p>✔️Enkelt att komma igång.</p>
       <p>✔️Extra jobb</p>
       <p>✔️Du slipper starta ett bolag</p>
-      <h4>För att lägga upp tjänster, behöver du registrera dig!</h4>
       <b-button to="/register" style="background-color: #00A572; border: none;" size="lg">Gå med idag</b-button>
     </section>
     <section class="col-md-6">
