@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="loader" v-if="loader == true">
+    <div class="container text-center loader" v-if="loader == true">
       <h1 class="mb-5">Taskville.se</h1>
       <b-spinner style="width: 3rem; height: 3rem;" variant="success" label="Spinning"></b-spinner>
     </div>
@@ -24,19 +24,9 @@ h1 {
 }
 
 .loader {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position:fixed;
-  padding:0;
-  margin:0;
-  top:0;
-  left:0;
-  width: 100%;
-  height: 100%;
-  background:rgba(0, 0, 0, 0.568);
+  height: 20em;
 }
+
+
 
 </style>

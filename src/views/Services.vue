@@ -1,6 +1,7 @@
 <template>
   <div>
-    <ListAllServices v-if="loader === false" msg="Frilanserare till din tjänst.." />
+    <h2 class="container mt-5">Frilanserare tillgängliga</h2>
+    <ListAllServices v-if="loader === false" />
     <Loader :loader="loader" />
   </div>
 </template>

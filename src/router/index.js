@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import Services from "../views/Services.vue";
 
 Vue.use(VueRouter);
 
@@ -13,11 +14,13 @@ const routes = [
   {
     path: "/tjanster",
     name: "services",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    component: Services 
+  },
+  {
+    path: "/blipartner",
+    name: "BecomePartner",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Services.vue")
+      import(/* webpackChunkName: "about" */ "../views/BecomePartner.vue")
   },
   {
     path: "/login",
@@ -44,10 +47,13 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/account/Register.vue")
   },
   {
-    path: "/checkout",
-    name: "Checkout",
+    path: "/glomtlosenord",
+    name: "ResetPassword",
+    meta: {
+      requiresVisitor: true
+    },
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Checkout.vue")
+      import(/* webpackChunkName: "about" */ "../views/account/ResetPassword.vue")
   },
   {
     path: "/tjanster/:id",
@@ -58,8 +64,17 @@ const routes = [
   {
     path: "/tjanst/lagg-till",
     name: "AddProduct",
+    meta: {
+      requiresAuth: true
+    },
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AddProduct.vue")
+  },
+  {
+    path: "/success",
+    name: "PurchaseConfirm",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/PurchaseConfirm.vue")
   },
   {
     path: "/404",
@@ -75,6 +90,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
+  linkExactActiveClass: 'is-active',
   base: process.env.BASE_URL,
   routes
 });

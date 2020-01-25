@@ -14,10 +14,13 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faArrowLeft, faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(faArrowLeft, faCloudUploadAlt)
+import { faArrowLeft, faLongArrowAltRight} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+library.add(faArrowLeft, faLongArrowAltRight)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
 
 Vue.config.productionTip = false;
 

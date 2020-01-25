@@ -1,7 +1,7 @@
 <template>
-  <div class="container d-flex justify-content-end align-center flex-column h-50">
+  <div>
     <h1>{{ msg }}</h1>
-    <h2>Som köpare kan du fynda tjänster till grymma priser.</h2>
+    <h2>Fynda tjänster till konkurrenskraftiga priser idag</h2>
   </div>
 </template>
 
@@ -37,6 +37,6 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: #00A572;
 }
 </style>

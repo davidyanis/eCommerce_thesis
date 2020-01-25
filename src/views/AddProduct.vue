@@ -7,13 +7,17 @@
         <p> Rubrik: Däckbyte</p>
         <p> Pris: 100 kr</p>
         <p> Beskrivning: Däckmontör med flera års erfarenhet från att ha jobbat med det proffesionellt och gjort mycket åt vänner.</p>
-        <p> Meddelande till kunden: Tack för ditt köp. Så fort jag har sett denna transaktionen, ringer jag upp dig. 🙂</p>
+        <p> Telefonnummer: 073-982 98 00</p>
     
       </sidebar>
-      <b-form @submit="onSubmit" class="col-md-6">
+      <b-form @submit="publishProduct" class="col-md-6">
         <h4>Här kan du lägga till en tjänst </h4>
+         <div v-if="inputerror === true" class="alert alert-danger">
+            <strong>Vänligen fyll i alla fält.</strong> 
+          </div>
         <b-form-group label="Ditt namn:">
           <b-form-input v-model="form.name" type="text"></b-form-input>
+          
         </b-form-group>
         <b-form-group label="Rubrik:" >
           <b-form-input v-model="form.title" placeholder="Hårklippning hemma hos dig." type="text"></b-form-input>
@@ -25,63 +29,80 @@
           <b-form-textarea v-model="form.description" id="textarea" placeholder="Jag hjälper dig med.." rows="3" max-rows="6"></b-form-textarea>
         </b-form-group>
         <b-form-group label="Ladda upp en bild:">
-          <b-form-file v-model="form.imageSrc" browse-text="Välj fil" placeholder="Bild på tjänsten..." drop-placeholder="Dra filen hit..."></b-form-file>
-          <b-button @click="uploadImage" size="sm" variant="primary">Spara bild <font-awesome-icon :icon="['fas', 'cloud-upload-alt']" /></b-button>
-          <!-- <b-img center src="https://picsum.photos/125/125/?image=58" alt="Center image"></b-img> -->
+          <b-form-file @change="onFileChanged" v-model="form.imageSrc" browse-text="Välj fil" placeholder="Bild på tjänsten..." drop-placeholder="Dra filen hit..."></b-form-file>
         </b-form-group>
-        <b-form-group label="Meddelande till kunden vid köp:">
-          <b-form-textarea v-model="form.customerMessage" id="textarea" placeholder="Tack för ditt köp.." rows="3" max-rows="6"></b-form-textarea>
+        <b-form-group label="Telefonnummer:">
+            <b-form-input v-model="form.customerMessage"></b-form-input>
         </b-form-group>
-        <b-button variant="success" type="submit">Publicera</b-button>
+        <b-button variant="success" type="submit">Publicera  <b-spinner v-if="loader == true" small variant="light" label="Spinning"></b-spinner> </b-button>
       </b-form>
-   
     </div>
+    
   </div>
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
 
 export default {
   data() {
     return {
+      inputerror: null,
+      loader: false,
       form: {
-        name: '',
-        title: '',
-        description: '',
+        name: null,
+        title: null,
+        description: null,
         price: null,
         imageSrc: null,
-        customerMessage: '',
+        customerMessage: null,
       }
+    }
+  },
+  validations: {
+    form: {
+      name: { required },
+      title: { required },
+      description: { required },
+      price: { required },
+      imageSrc: { required },
+      customerMessage: { required },
     }
   },
   methods: {
-    uploadImage: async function() {
-      try {
-        let response = await this.$axios.post("http://localhost:3000/api/upload/image", {
-        imageSrc: this.form.imageSrc,
-    
-        })
-      } catch (err) {
-        alert(err)
-      }
+    onFileChanged (event) {
+      this.form.imageSrc = event.target.files[0]
+      console.log(this.form.imageSrc)
     },
-    onSubmit: async function(evt) {
+    publishProduct: async function(evt) {
       evt.preventDefault()
+      this.loader = true
       try {
-        let response = await this.$axios.post("http://localhost:3000/api/createProduct", {
-        form: this.form,
-        cookie: localStorage.getItem("cookie")
-      })
+        const formData = new FormData()
+        formData.append('imageSrc', this.form.imageSrc)
+        formData.append('name', this.form.name)
+        formData.append('title', this.form.title)
+        formData.append('description', this.form.description)
+        formData.append('price', this.form.price)
+        formData.append('customerMessage', this.form.customerMessage)
+        formData.append('cookie', localStorage.getItem("cookie"))
+        let response = await this.$axios.post("http://localhost:3000/api/createProduct", formData)
+        
+        if (response.status === 200) {
+          this.$router.push('/tjanster')
+        }
+
       } catch (err) {
-        alert(err)
+      this.inputerror = true;
+        if (err.response.status === 401) {
+          this.$router.push('/logout')
+          alert("Vänligen logga in igen")
+        }
       }
+      this.loader = false
     }
   },
-  computed: {
-    charactersRemaining: function() {
-      return this.form.maxCharacters - this.form.shortDescription.length
-    },
-  },
+  
 
 }
 </script>
@@ -97,5 +118,9 @@ form {
 
 h4 {
   color: #42b983;
+}
+
+button {
+  background-color: #42b983;
 }
 </style>

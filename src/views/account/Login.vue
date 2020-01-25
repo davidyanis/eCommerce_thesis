@@ -1,5 +1,8 @@
 <template>
-   <div class="container col-md-4 mt-5">
+   <div class="container col-md-4 mt-5 login-container">
+    <div v-if="inputerror === true" class="alert alert-danger">
+      <strong></strong> Du har angett felaktig användarnamn eller lösenord.
+    </div>
     <div class="d-flex justify-content-between">
       <h5>Logga in </h5>
       <span class="ml-5"> eller <b-link to="register">skapa konto</b-link> </span>
@@ -21,24 +24,21 @@
         type="password"
       ></b-form-input>
     </b-form-group>
-      
-    <b-button type="submit" variant="primary">Logga in</b-button>
+    <div class="d-flex justify-content-between">
+      <b-button type="submit" variant="primary">Logga in <b-spinner v-if="loader == true" small variant="light" label="Spinning"></b-spinner> </b-button>
+      <b-link to="/glomtlosenord">Glömt lösenord</b-link>
+    </div>
     </b-form>
-    <Loader :loader="loader" />
   </div>
 </template>
 
 <script>
-import Loader from "@/components/Loader.vue";
-
 export default {
   name: "Login",
-  components: {
-    Loader
-  },
   data() {
     return {
       loader: false,
+      inputerror: false,
       form: {
         name: '',
         password: ''
@@ -58,15 +58,12 @@ export default {
           this.$router.push("/tjanster")
         })
         .catch(err => {
-          alert("Du har angett fel användarnamn eller lösenord")
+          this.inputerror = true
         })
 
         this.loader = false
     },
   },
-  mounted() {
-    console.log(this.form.email)
-  }
 };
 </script>
 
@@ -90,6 +87,10 @@ button {
 
 button:hover {
   background-color: #359167;
+}
+
+.login-container {
+  height: 50vh;
 }
 
 </style>

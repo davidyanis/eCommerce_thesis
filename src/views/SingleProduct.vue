@@ -3,32 +3,44 @@
     <router-link to="/tjanster">  <font-awesome-icon icon="arrow-left" /> Tillbaka till tjänster</router-link>
       <div class="col-md-12 mt-5 d-flex justify-content-between flex-wrap">
         <section class="col-md-6">
-          <h4>Om denna tjänsten</h4>
-          <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+          <img :src="singleProduct.images[0].src" width="100%"/>
+        
+          <h4 class="mt-5">Beskrivning om tjänsten</h4>
+          <p>{{singleProduct.description | strippedContent}}</p>
         </section>
-        <b-card class="col-md-3">
+        <b-card class="col-md-4">
           <h4>{{singleProduct.name}}</h4>
-          <b-card-text>{{singleProduct.regular_price}} kr</b-card-text>
+          <h6>{{singleProduct.short_description | strippedContent}}</h6>
+          <p>Kontakta: {{singleProduct.purchase_note | strippedContent}}</p>
          
-          <b-button block class="mt-3" @click="goToProduct(singleProduct.id)"> Gå vidare </b-button>
+          <b-button block class="mt-3" @click="checkout(singleProduct)"> Köp {{singleProduct.regular_price}} kr </b-button>
         </b-card>
+       
       </div>
       <Loader :loader="loader" />
   </div>
 </template>
-
+<script src="https://js.stripe.com/v3/"></script>
 <script>
+var stripe = Stripe('pk_test_THn2YsYQGOHTtMhc6762FcJt00WHho7x9p');
 import Loader from "@/components/Loader.vue";
+
 export default {
   name: "SingleProduct",
   components: {
-    Loader
+    Loader,
   },
   data() {
     return {
       loader: true,
       singleProduct: [],
+      cart: [],
       productId: this.$route.params.id
+    }
+  },
+   filters: {
+    strippedContent: function(string) {
+      return string.replace(/<\/?[^>]+>/ig, " "); 
     }
   },
   async created() {
@@ -37,11 +49,30 @@ export default {
         productId: this.productId
       })
       this.singleProduct = response.data
+     
+      this.cart.push({
+        'name': response.data.name,
+        'description': response.data.description.replace(/<[^>]*>?/gm, ''),
+        'amount': parseInt(response.data.regular_price, 10),
+        'quantity': 1,
+        'currency': 'sek'
+      })
       this.loader = false
     } catch (err) {
       window.location.href = '/404'
     }
-  }
+  },
+  methods: {
+    checkout: async function(singleProduct) {
+
+      let response = await this.$axios.post('/api/checkout', this.cart )
+
+      const {error} = await stripe.redirectToCheckout({
+        sessionId: response.data.sessionId
+      })
+
+    }
+  },
 };
 </script>
 

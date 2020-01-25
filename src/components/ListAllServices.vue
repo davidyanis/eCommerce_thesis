@@ -1,8 +1,7 @@
 <template>
   <div class="container mt-5">
-    <h1>{{ msg }}</h1>
-    <div class="card-deck">
-      <div class="card" style="max-width: 20rem;" v-for="(service, id) in this.$store.list" :key="id">
+    <div class="card-deck mt-5">
+      <div class="card mb-5 col-lg-3 " style="padding: 0!important;" v-for="(service, id) in this.$store.list" :key="id">
         <img class="card-img-top" :src="service.images[0].src" width="100%" height="200px" />
         <div class="card-body pb-0 d-flex justify-content-between">
           <h4 @click="goToProduct(service.id)"> {{service.name}} </h4>
@@ -12,7 +11,7 @@
          {{service.short_description | strippedContent}}
         </div>
         <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
+          <small class="text-muted">Upplagd {{service.date_created}}</small>
         </div>
       </div>
     </div>
