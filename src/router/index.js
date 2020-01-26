@@ -47,15 +47,6 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/account/Register.vue")
   },
   {
-    path: "/glomtlosenord",
-    name: "ResetPassword",
-    meta: {
-      requiresVisitor: true
-    },
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/account/ResetPassword.vue")
-  },
-  {
     path: "/tjanster/:id",
     name: "SingleProduct",
     component: () =>

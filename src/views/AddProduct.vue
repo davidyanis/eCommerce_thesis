@@ -2,11 +2,11 @@
   <div>
     <div class="container mt-5 d-flex justify-content-between flex-wrap">
       <div class="col-md-5 sidebar">
-        <h4>Exempel på en bra annons..</h4>
+        <h4>Exempel på annons innehåll..</h4>
         <p>Namn: Magnus Johansson</p>
-        <p> Rubrik: Däckbyte</p>
-        <p> Pris: 100 kr</p>
-        <p> Beskrivning: Däckmontör med flera års erfarenhet från att ha jobbat med det proffesionellt och gjort mycket åt vänner.</p>
+        <p> Rubrik: Motorolja byte till din bil</p>
+        <p> Pris: 500 kr</p>
+        <p> Beskrivning: Bilmekaniker med 10 års erfarenhet från att ha jobbat med det professionellt.</p>
         <p> Telefonnummer: 073-982 98 00</p>
     
       </div>
@@ -20,7 +20,7 @@
           
         </b-form-group>
         <b-form-group label="Rubrik:" >
-          <b-form-input v-model="form.title" placeholder="Hårklippning hemma hos dig." type="text"></b-form-input>
+          <b-form-input v-model="form.title" placeholder="Motorolja byte till din bil." type="text"></b-form-input>
         </b-form-group>
         <b-form-group label="Pris (kr):">
           <b-form-input v-model="form.price" type="number"></b-form-input>

@@ -1,5 +1,6 @@
 <template>
    <div class="container col-md-4 mt-5 login-container">
+       <Loader :loader="loader" />
     <div v-if="inputerror === true" class="alert alert-danger">
       <strong></strong> Du har angett felaktig användarnamn eller lösenord.
     </div>
@@ -25,14 +26,16 @@
       ></b-form-input>
     </b-form-group>
     <div class="d-flex justify-content-between">
-      <b-button type="submit" variant="primary">Logga in <b-spinner v-if="loader == true" small variant="light" label="Spinning"></b-spinner> </b-button>
-      <b-link to="/glomtlosenord">Glömt lösenord</b-link>
+      <b-button type="submit" variant="primary">Logga in </b-button>
     </div>
     </b-form>
+  
   </div>
 </template>
 
 <script>
+import Loader from "@/components/Loader.vue";
+
 export default {
   name: "Login",
   data() {
